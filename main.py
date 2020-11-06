@@ -27,14 +27,14 @@ def search(file_list):
     each of those lists contains files that have the same content
     """
     lol = []
-    while 0 < len(file_list):
-        dups = list(filter(lambda x: compare(file_list[0], x), file_list))
+    while 0 < len(file_list):  # problem gets smaller with every iteration, since items get removed
+        dups = [file_list.pop(0)]
+        for i in range(len(file_list) - 1, -1, -1):  # careful .. data-structure get modified while iterating over it
+            if compare(dups[0], file_list[i]):
+                dups.append(file_list.pop(i))
         if 1 < len(dups):
             lol.append(dups)
-        file_list = list(filter(lambda x: not compare(file_list[0], x), file_list))
-    lol.sort(reverse=True)
     return lol
-
 
 
 def faster_search(file_list):
@@ -45,9 +45,12 @@ def faster_search(file_list):
     Therefore, let's optimize and try to call it a little less often.
     """
     lol = []
-    #
-    # ...
-    #
+    while 0 < len(file_list):
+        dups = list(filter(lambda x: compare(file_list[0], x), file_list))
+        if 1 < len(dups):
+            lol.append(dups)
+        file_list = list(filter(lambda x: not compare(file_list[0], x), file_list))
+    lol.sort(reverse=True)
     return lol
 
 
@@ -60,10 +63,17 @@ def report(lol):
     - longest list, i.e. the files with the most duplicates
     - list where the items require the largest amount or disk-space
     """
-    print(lol)
+    lol.sort(reverse=False)
+    m = max(lol, key=lambda x: len(x))
+
+    # dups which have the most characters .. again considering one origianl
+
+
     print("== == Duplicate File Finder Report == ==")
-    print(f"The File with the most duplicates is:{lol[0]}")
-    print(f"Here are its {sum([lol[1:]])} copies:{lol[1:]}")
+    print(f"The File with the most duplicates is:\n {m[0]}")
+    print(f"Here are its {len(m)-1} copies: ")
+    for file in m[1:]:
+        print(file)
     # if .... :
     #
     # else:
@@ -71,18 +81,18 @@ def report(lol):
 
 
 if __name__ == '__main__':
-    path = join(".", "images")
+    path = join(".", 'images')
 
     # measure how long the search and reporting takes:
     t0 = time()
-    report(search(all_files('C:/Users/Brandon/Desktop/images')))
+    report(search(all_files("/Users/cflock/Desktop/images")))
     print(f"Runtime: {time() - t0:.2f} seconds")
 
     print("\n\n .. and now w/ a faster search implementation:")
 
     # measure how long the search and reporting takes:
     t0 = time()
-    report(faster_search(all_files(path)))
+    report(faster_search(all_files("/Users/cflock/Desktop/images")))
     print(f"Runtime: {time() - t0:.2f} seconds")
 
 
