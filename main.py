@@ -28,12 +28,12 @@ def search(file_list):
     """
     lol = []
     while 0 < len(file_list):
-        dups = list(filter(lambda x: compare(names[0], x), file_list))
+        dups = list(filter(lambda x: compare(file_list[0], x), file_list))
         if 1 < len(dups):
             lol.append(dups)
-        names = list(filter(lambda x: not compare(names[0], x), file_list))
+        file_list = list(filter(lambda x: not compare(file_list[0], x), file_list))
+    lol.sort(reverse=True)
     return lol
-
 
 
 
@@ -51,6 +51,7 @@ def faster_search(file_list):
     return lol
 
 
+
 def report(lol):
     """ Prints a report
     :param lol: list of lists (each containing files with equal content)
@@ -59,7 +60,10 @@ def report(lol):
     - longest list, i.e. the files with the most duplicates
     - list where the items require the largest amount or disk-space
     """
+    print(lol)
     print("== == Duplicate File Finder Report == ==")
+    print(f"The File with the most duplicates is:{lol[0]}")
+    print(f"Here are its {sum([lol[1:]])} copies:{lol[1:]}")
     # if .... :
     #
     # else:
@@ -71,7 +75,7 @@ if __name__ == '__main__':
 
     # measure how long the search and reporting takes:
     t0 = time()
-    report(search(all_files(path)))
+    report(search(all_files('C:/Users/Brandon/Desktop/images')))
     print(f"Runtime: {time() - t0:.2f} seconds")
 
     print("\n\n .. and now w/ a faster search implementation:")

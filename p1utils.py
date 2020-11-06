@@ -1,9 +1,9 @@
-["""Utilities for CS 118 Project 1.
+"""Utilities for CS 118 Project 1.
 
 Functions:
     compare(f1:str,f2:str) -> bool
     allFiles(directory:str) -> []
-"""]
+"""
 from filecmp import cmp
 from os import walk, mkdir, remove, rmdir
 from os.path import join
@@ -13,7 +13,7 @@ __all__ = ['compare', 'all_files']
 
 def compare(f1, f2):
     """Compare the files f1 and f2, returning True if the files are the same, False otherwise."""
-    return f1 == f2
+    return cmp(f1, f2, False)
 
 
 def all_files(directory):
@@ -23,7 +23,6 @@ def all_files(directory):
         for name in files:
             file_list.append(join(root, name))
     return file_list
-
 
 
 def _write_into_file(file_path, content):
@@ -52,5 +51,4 @@ def _test():
 
 
 if __name__ == '__main__':
-
     _test()
