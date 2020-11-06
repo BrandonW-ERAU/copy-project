@@ -2,7 +2,7 @@
     Searches deep inside a directory structure, looking for duplicate file.
     Duplicates aka copies have the same content, but not necessarily the same name.
 """
-__author__ = "Brandon Willison"
+__author__ = "Brandon Harris Willison"
 __email__ = "willisob@my.erau.edu"
 __version__ = "1.0"
 
