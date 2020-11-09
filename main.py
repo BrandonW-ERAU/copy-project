@@ -9,10 +9,7 @@ __version__ = "1.0"
 from os.path import getsize, join
 from time import time
 from p1utils import all_files, compare
-print('Getsize Module: ', getsize.__doc__)
-print('all_files Function : ', all_files.__doc__)
-print('Time Module: ', time.__doc__)
-print('Compare Function: ', compare.__doc__)
+
 
 
 def search(file_list):
