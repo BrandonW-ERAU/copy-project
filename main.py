@@ -11,7 +11,6 @@ from time import time
 from p1utils import all_files, compare
 
 
-
 def search(file_list):
     """Iterates through the list of files(file_list) created by the 'all_files' function, creating lists of duplicates
 and appending those lists to a grand list of lists of duplicates. The function returns a list of lists."""
@@ -56,7 +55,7 @@ directory."""
 
     # Most Space
     most_space = max(lol, key=lambda x: len(x) * getsize(x[0]))
-    print(f"The file taking up the most disk space({(len(most_space) - 1) * getsize(most_copies[0])}) is: "
+    print(f"The file taking up the most disk space({(len(most_space) - 1) * getsize(most_space[0])}) is: "
           f"\n {most_space[0]}")
     print(f"Here are its {len(most_space) - 1} copies: ")
     for file in most_space[1:]:
@@ -66,9 +65,9 @@ directory."""
 if __name__ == '__main__':
     path = join(".", "images")
     t0 = time()
-    report(search(all_files("C:/Users/Brandon/Desktop/images")))
+    report(search(all_files("/Users/cflock/Desktop/images")))
     print(f"Runtime: {time() - t0:.2f} seconds")
     print("\n\n .. and now w/ a faster search implementation:")
     t0 = time()
-    report(faster_search(all_files("C:/Users/Brandon/Desktop/images")))
+    report(faster_search(all_files("/Users/cflock/Desktop/images")))
     print(f"Runtime: {time() - t0:.2f} seconds")
